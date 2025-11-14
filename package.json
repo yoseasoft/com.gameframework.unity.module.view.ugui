@@ -1,0 +1,24 @@
+{
+  "name": "com.gameframework.unity.module.view.ugui",
+  "displayName": "GameFramework.Module.View.UGUI",
+  "description": "The View.UGUI module package for GameFramework",
+  "version": "1.0.0",
+  "unity": "2018.3",
+  "unityRelease": "0f1",
+  "license": "MIT",
+  "keywords": [ "Unity", "GameFramework", "UGUI" ],
+  "author": {
+    "name": "hurley",
+    "email": "yoseasoft@163.com",
+    "url": "https://github.com/yoseasoft/com.gameframework.unity.module.view.ugui"
+  },
+  "repository": {
+    "name": "com.gameframework.unity.module.view.ugui",
+    "type": "git",
+    "url": "https://github.com/yoseasoft/com.gameframework.unity.module.view.ugui.git"
+  },
+  "relatedPackages": {},
+  "dependencies": {
+    "com.yoseasoft.novaframework": "1.0.0"
+  }
+}
