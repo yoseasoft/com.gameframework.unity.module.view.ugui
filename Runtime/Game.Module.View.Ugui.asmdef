@@ -5,6 +5,7 @@
         "GooAsset",
         "Nova.Engine",
         "Nova.Basic",
+        "Nova.Import",
         "Nova.UniTask"
     ],
     "includePlatforms": [],
