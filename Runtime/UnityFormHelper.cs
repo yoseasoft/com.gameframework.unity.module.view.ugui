@@ -10,6 +10,8 @@ using Cysharp.Threading.Tasks;
 using GameEngine;
 
 using SystemType = System.Type;
+
+using UnityObject = UnityEngine.Object;
 using UnityGameObject = UnityEngine.GameObject;
 using UnityTransform = UnityEngine.Transform;
 using UnityRenderMode = UnityEngine.RenderMode;
@@ -37,8 +39,11 @@ namespace Game.Module.View.Ugui
         static UnityTransform _dynamicCanvasTransform;
         static UnityTransform _dynamicEventSystemTransform;
 
-        // static UnityCanvas _dynamicCanvas;
-        // static UnityEventSystem _dynamicEventSystem;
+        public static UnityGameObject DynamicCanvasObject => _dynamicCanvasObject;
+        public static UnityGameObject DynamicEventSystemObject => _dynamicEventSystemObject;
+
+        public static UnityTransform DynamicCanvasTransform => _dynamicCanvasTransform;
+        public static UnityTransform DynamicEventSystemTransform => _dynamicEventSystemTransform;
 
         internal static string UnityGuiResourcePath
         {
@@ -86,7 +91,7 @@ namespace Game.Module.View.Ugui
             Debugger.Assert(null == targetGameObject, "The dynamic canvas object must be null.");
 
             targetGameObject = new UnityGameObject("DynamicCanvas");
-            UnityGameObject.DontDestroyOnLoad(targetGameObject);
+            UnityObject.DontDestroyOnLoad(targetGameObject);
             UnityCanvas canvas = targetGameObject.AddComponent<UnityCanvas>();
             canvas.renderMode = UnityRenderMode.ScreenSpaceOverlay;
             UnityCanvasScaler canvasScaler = targetGameObject.AddComponent<UnityCanvasScaler>();
@@ -101,7 +106,7 @@ namespace Game.Module.View.Ugui
             Debugger.Assert(null == targetGameObject, "The dynamic event system object must be null.");
 
             targetGameObject = new UnityGameObject("DynamicEventSystem");
-            UnityGameObject.DontDestroyOnLoad(targetGameObject);
+            UnityObject.DontDestroyOnLoad(targetGameObject);
             UnityEventSystem eventSystem = targetGameObject.AddComponent<UnityEventSystem>();
             UnityStandaloneInputModule standaloneInputModule = targetGameObject.AddComponent<UnityStandaloneInputModule>();
 
@@ -115,12 +120,12 @@ namespace Game.Module.View.Ugui
         private static void CleanupGuiConfig()
         {
             Debugger.Assert(_dynamicCanvasObject, "The dynamic canvas object must be non-null.");
-            UnityGameObject.Destroy(_dynamicCanvasObject);
+            UnityObject.Destroy(_dynamicCanvasObject);
             _dynamicCanvasObject = null;
             _dynamicCanvasTransform = null;
 
             Debugger.Assert(_dynamicEventSystemObject, "The dynamic event system object must be non-null.");
-            UnityGameObject.Destroy(_dynamicEventSystemObject);
+            UnityObject.Destroy(_dynamicEventSystemObject);
             _dynamicEventSystemObject = null;
             _dynamicEventSystemTransform = null;
         }
@@ -133,20 +138,7 @@ namespace Game.Module.View.Ugui
         {
             string url = $"{UnityGuiResourcePath}{viewType.Name}/Main.prefab";
 
-            UnityGameObject panelAssetObject = await ResourceHandler.Instance.LoadAssetAsync<UnityGameObject>(url);
-            UnityGameObject panelInstantiateObject = UnityGameObject.Instantiate(panelAssetObject, _dynamicCanvasTransform);
-            ResourceHandler.Instance.UnloadAsset(panelAssetObject);
-
-            if (null == panelInstantiateObject)
-            {
-                Debugger.Warn("加载指定资源路径‘{%s}’下的视图类型‘{%t}’的窗口表单对象实例失败，请检查窗口资源是否存在！", url, viewType);
-                return null;
-            }
-
-            //UnityGameObject.DontDestroyOnLoad(panelInstantiateObject);
-            //panelInstantiateObject.transform.parent = _dynamicCanvasTransform;
-
-            return panelInstantiateObject;
+            return await ResourceHandler.Instance.LoadAssetAsync<UnityGameObject>(url);
         }
 
         /// <summary>

@@ -6,13 +6,14 @@
 /// 功能描述：
 /// </summary>
 
-using SystemType = System.Type;
+using GameEngine;
 
+using SystemType = System.Type;
+using UnityObject = UnityEngine.Object;
 using UnityGameObject = UnityEngine.GameObject;
 using UnityTransform = UnityEngine.Transform;
-using UniTask = Cysharp.Threading.Tasks.UniTask;
 
-using GameEngine;
+using UniTask = Cysharp.Threading.Tasks.UniTask;
 
 namespace Game.Module.View.Ugui
 {
@@ -31,6 +32,11 @@ namespace Game.Module.View.Ugui
         private UnityTransform _gameTransform;
 
         /// <summary>
+        /// 资源对象
+        /// </summary>
+        private UnityGameObject _assetObject;
+
+        /// <summary>
         /// 窗口根节点对象实例
         /// </summary>
         public override object Root => _gameObject;
@@ -47,14 +53,28 @@ namespace Game.Module.View.Ugui
         /// </summary>
         protected override sealed async UniTask Load()
         {
-            UnityGameObject panel = await UnityFormHelper.OnWindowLoaded(_viewType);
+            UnityGameObject assetObject = await UnityFormHelper.OnWindowLoaded(_viewType);
 
-            if (null != panel)
+            UnityGameObject instantiateObject = UnityObject.Instantiate(assetObject, UnityFormHelper.DynamicCanvasTransform);
+            // ResourceHandler.Instance.UnloadAsset(assetObject);
+
+            if (null == instantiateObject)
+            {
+                Debugger.Warn("加载指定视图类型‘{%t}’的窗口表单对象实例失败，请检查窗口资源是否存在！", _viewType);
+                return;
+            }
+
+            //UnityObject.DontDestroyOnLoad(instantiateObject);
+            //instantiateObject.transform.parent = UnityFormHelper.DynamicCanvasTransform;
+
+            if (null != instantiateObject)
             {
                 _isLoaded = true;
 
-                _gameObject = panel;
-                _gameTransform = panel.transform;
+                _gameObject = instantiateObject;
+                _gameTransform = instantiateObject.transform;
+
+                _assetObject = assetObject;
 
                 // 编辑器下显示名字
                 if (NovaEngine.Environment.IsDevelopmentState())
@@ -69,9 +89,12 @@ namespace Game.Module.View.Ugui
         /// </summary>
         protected override sealed void Unload()
         {
-            UnityGameObject.Destroy(_gameObject);
+            UnityObject.Destroy(_gameObject);
             _gameObject = null;
             _gameTransform = null;
+
+            ResourceHandler.Instance.UnloadAsset(_assetObject);
+            _assetObject = null;
 
             _isLoaded = false;
         }
