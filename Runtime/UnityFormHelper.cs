@@ -96,7 +96,8 @@ namespace Game.Module.View.Ugui
             canvas.renderMode = UnityRenderMode.ScreenSpaceOverlay;
             UnityCanvasScaler canvasScaler = targetGameObject.AddComponent<UnityCanvasScaler>();
             canvasScaler.uiScaleMode = UnityCanvasScaler.ScaleMode.ScaleWithScreenSize;
-            canvasScaler.referenceResolution.Set(1920, 1080);
+            // canvasScaler.referenceResolution.Set(NovaEngine.Environment.designResolutionWidth, NovaEngine.Environment.designResolutionHeight);
+            canvasScaler.referenceResolution = new UnityEngine.Vector2(NovaEngine.Environment.designResolutionWidth, NovaEngine.Environment.designResolutionHeight);
             targetGameObject.AddComponent<UnityGraphicRaycaster>();
 
             _dynamicCanvasObject = targetGameObject;
