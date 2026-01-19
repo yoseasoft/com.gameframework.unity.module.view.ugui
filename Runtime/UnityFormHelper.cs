@@ -51,7 +51,7 @@ namespace Game.Module.View.Ugui
             {
                 if (null == _unityGuiResourcePath)
                 {
-                    _unityGuiResourcePath = NovaEngine.Environment.GetSystemPath("UGUI_PATH");
+                    _unityGuiResourcePath = NovaEngine.Environment.GetSystemPath("GUI_PATH");
                     Debugger.Assert(false == string.IsNullOrEmpty(_unityGuiResourcePath), "Invalid UGui resource path.");
                 }
 
