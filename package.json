@@ -1,6 +1,6 @@
 {
   "name": "com.gameframework.unity.module.view.ugui",
-  "displayName": "GameFramework.Module.View.UGUI",
+  "displayName": "GameFramework.View.UGUI",
   "description": "The View.UGUI module package for GameFramework",
   "version": "1.0.0",
   "unity": "2018.3",
