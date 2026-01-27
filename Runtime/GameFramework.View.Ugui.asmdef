@@ -1,12 +1,12 @@
 {
-    "name": "Game.Module.View.Ugui",
+    "name": "GameFramework.View.Ugui",
     "rootNamespace": "",
     "references": [
         "GooAsset",
-        "Nova.Engine",
-        "Nova.Basic",
-        "Nova.Import",
-        "Nova.UniTask"
+        "NovaFramework.UniTask",
+        "NovaEngine.Kernel",
+        "NovaEngine.Basic",
+        "NovaEngine.Import"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
