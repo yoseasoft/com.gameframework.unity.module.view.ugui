@@ -6,7 +6,7 @@
 /// 功能描述：
 /// </summary>
 
-namespace Game.Module.View.Ugui
+namespace GameFramework.View.Ugui
 {
     /// <summary>
     /// 程序集的管理模块对象类

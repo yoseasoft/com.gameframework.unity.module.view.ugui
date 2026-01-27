@@ -6,10 +6,9 @@
 /// 功能描述：
 /// </summary>
 
+using System;
 using Cysharp.Threading.Tasks;
 using GameEngine;
-
-using SystemType = System.Type;
 
 using UnityObject = UnityEngine.Object;
 using UnityGameObject = UnityEngine.GameObject;
@@ -21,7 +20,7 @@ using UnityGraphicRaycaster = UnityEngine.UI.GraphicRaycaster;
 using UnityEventSystem = UnityEngine.EventSystems.EventSystem;
 using UnityStandaloneInputModule = UnityEngine.EventSystems.StandaloneInputModule;
 
-namespace Game.Module.View.Ugui
+namespace GameFramework.View.Ugui
 {
     /// <summary>
     /// UGUI的窗口对象辅助工具类
@@ -135,7 +134,7 @@ namespace Game.Module.View.Ugui
         /// 窗口加载回调函数
         /// </summary>
         /// <param name="viewType">视图类型</param>
-        internal static async UniTask<UnityGameObject> OnWindowLoaded(SystemType viewType)
+        internal static async UniTask<UnityGameObject> OnWindowLoaded(Type viewType)
         {
             string url = $"{UnityGuiResourcePath}{viewType.Name}/Main.prefab";
 

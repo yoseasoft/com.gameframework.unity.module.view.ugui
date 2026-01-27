@@ -6,16 +6,16 @@
 /// 功能描述：
 /// </summary>
 
+using System;
+using Cysharp.Threading.Tasks;
+
 using GameEngine;
 
-using SystemType = System.Type;
 using UnityObject = UnityEngine.Object;
 using UnityGameObject = UnityEngine.GameObject;
 using UnityTransform = UnityEngine.Transform;
 
-using UniTask = Cysharp.Threading.Tasks.UniTask;
-
-namespace Game.Module.View.Ugui
+namespace GameFramework.View.Ugui
 {
     /// <summary>
     /// 基于UGUI封装的窗口对象类
@@ -41,7 +41,7 @@ namespace Game.Module.View.Ugui
         /// </summary>
         public override object Root => _gameObject;
 
-        internal UnityForm(SystemType viewType) : base(viewType)
+        internal UnityForm(Type viewType) : base(viewType)
         {
         }
 
@@ -112,7 +112,7 @@ namespace Game.Module.View.Ugui
         /// </summary>
         protected override sealed void Hide()
         {
-            Debugger.Throw<System.NotImplementedException>();
+            Debugger.Throw<NotImplementedException>();
         }
     }
 }

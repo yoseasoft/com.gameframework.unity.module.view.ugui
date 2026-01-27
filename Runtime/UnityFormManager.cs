@@ -6,11 +6,10 @@
 /// 功能描述：
 /// </summary>
 
+using System;
 using GameEngine;
 
-using SystemType = System.Type;
-
-namespace Game.Module.View.Ugui
+namespace GameFramework.View.Ugui
 {
     public class UnityFormManager : IFormManager
     {
@@ -29,7 +28,7 @@ namespace Game.Module.View.Ugui
             UnityFormHelper.Update();
         }
 
-        public Form CreateForm(SystemType viewType)
+        public Form CreateForm(Type viewType)
         {
             return new UnityForm(viewType);
         }
