@@ -96,7 +96,7 @@ namespace GameFramework.View.Ugui
             UnityCanvasScaler canvasScaler = targetGameObject.AddComponent<UnityCanvasScaler>();
             canvasScaler.uiScaleMode = UnityCanvasScaler.ScaleMode.ScaleWithScreenSize;
             // canvasScaler.referenceResolution.Set(NovaEngine.Environment.designResolutionWidth, NovaEngine.Environment.designResolutionHeight);
-            canvasScaler.referenceResolution = new UnityEngine.Vector2(NovaEngine.Environment.designResolutionWidth, NovaEngine.Environment.designResolutionHeight);
+            canvasScaler.referenceResolution = new UnityEngine.Vector2(NovaEngine.Environment.DesignResolutionWidth, NovaEngine.Environment.DesignResolutionHeight);
             targetGameObject.AddComponent<UnityGraphicRaycaster>();
 
             _dynamicCanvasObject = targetGameObject;
