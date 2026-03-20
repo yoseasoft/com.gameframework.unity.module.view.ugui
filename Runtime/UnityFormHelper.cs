@@ -138,7 +138,7 @@ namespace GameFramework.View.Ugui
         {
             string url = $"{UnityGuiResourcePath}{viewType.Name}/Main.prefab";
 
-            return await ResourceHandler.Instance.LoadAssetAsync<UnityGameObject>(url);
+            return await ResourceHandler.Instance.AsyncLoadAsset<UnityGameObject>(url);
         }
 
         /// <summary>
