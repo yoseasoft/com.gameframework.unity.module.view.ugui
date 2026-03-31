@@ -136,7 +136,7 @@ namespace GameFramework.View.Ugui
         /// <param name="viewType">视图类型</param>
         internal static async UniTask<UnityGameObject> OnWindowLoaded(Type viewType)
         {
-            string url = $"{UnityGuiResourcePath}{viewType.Name}/Main.prefab";
+            string url = $"{UnityGuiResourcePath}/{viewType.Name}/Main.prefab";
 
             return await ResourceHandler.Instance.AsyncLoadAsset<UnityGameObject>(url);
         }
