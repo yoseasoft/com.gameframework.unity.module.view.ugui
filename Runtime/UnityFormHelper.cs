@@ -88,7 +88,7 @@ namespace GameFramework.View.Ugui
         private static void InitGuiConfig()
         {
             UnityGameObject targetGameObject = UnityGameObject.Find("DynamicCanvas");
-            Asserter.IsNull(targetGameObject);
+            Debugger.IsNull(targetGameObject);
 
             targetGameObject = new UnityGameObject("DynamicCanvas");
             UnityObject.DontDestroyOnLoad(targetGameObject);
@@ -104,7 +104,7 @@ namespace GameFramework.View.Ugui
             _dynamicCanvasTransform = targetGameObject.transform;
 
             targetGameObject = UnityGameObject.Find("DynamicEventSystem");
-            Asserter.IsNull(targetGameObject);
+            Debugger.IsNull(targetGameObject);
 
             targetGameObject = new UnityGameObject("DynamicEventSystem");
             UnityObject.DontDestroyOnLoad(targetGameObject);
