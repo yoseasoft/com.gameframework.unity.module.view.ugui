@@ -8,6 +8,7 @@
 
 using System;
 using Cysharp.Threading.Tasks;
+using NovaFramework.AssetLoader;
 using GameEngine;
 
 using UnityObject = UnityEngine.Object;
@@ -87,7 +88,7 @@ namespace GameFramework.View.Ugui
         private static void InitGuiConfig()
         {
             UnityGameObject targetGameObject = UnityGameObject.Find("DynamicCanvas");
-            Debugger.Assert(null == targetGameObject, "The dynamic canvas object must be null.");
+            Asserter.IsNull(targetGameObject);
 
             targetGameObject = new UnityGameObject("DynamicCanvas");
             UnityObject.DontDestroyOnLoad(targetGameObject);
@@ -103,7 +104,7 @@ namespace GameFramework.View.Ugui
             _dynamicCanvasTransform = targetGameObject.transform;
 
             targetGameObject = UnityGameObject.Find("DynamicEventSystem");
-            Debugger.Assert(null == targetGameObject, "The dynamic event system object must be null.");
+            Asserter.IsNull(targetGameObject);
 
             targetGameObject = new UnityGameObject("DynamicEventSystem");
             UnityObject.DontDestroyOnLoad(targetGameObject);
@@ -134,11 +135,11 @@ namespace GameFramework.View.Ugui
         /// 窗口加载回调函数
         /// </summary>
         /// <param name="viewType">视图类型</param>
-        internal static async UniTask<UnityGameObject> OnWindowLoaded(Type viewType)
+        internal static IAssetHandler OnWindowLoaded(Type viewType)
         {
             string url = $"{UnityGuiResourcePath}/{viewType.Name}/Main.prefab";
 
-            return await ResourceHandler.Instance.AsyncLoadAsset<UnityGameObject>(url);
+            return ResourceHandler.Instance.LoadAssetAsync<UnityGameObject>(url);
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
   "name": "com.gameframework.unity.module.view.ugui",
   "displayName": "GameFramework.View.UGUI",
   "description": "The View.UGUI module package for GameFramework",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "unity": "2018.3",
   "unityRelease": "0f1",
   "license": "MIT",

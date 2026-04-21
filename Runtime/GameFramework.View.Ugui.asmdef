@@ -2,8 +2,8 @@
     "name": "GameFramework.View.Ugui",
     "rootNamespace": "",
     "references": [
-        "GooAsset",
         "NovaFramework.UniTask",
+        "NovaFramework.AssetLoader",
         "NovaEngine.Kernel",
         "NovaEngine.Basic",
         "NovaEngine.Import"

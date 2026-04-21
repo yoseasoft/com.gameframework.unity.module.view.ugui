@@ -7,7 +7,10 @@
 /// </summary>
 
 using System;
+using System.Customize.Extension;
 using Cysharp.Threading.Tasks;
+
+using NovaFramework.AssetLoader;
 
 using GameEngine;
 
@@ -34,7 +37,12 @@ namespace GameFramework.View.Ugui
         /// <summary>
         /// 资源对象
         /// </summary>
-        private UnityGameObject _assetObject;
+        // private UnityGameObject _assetObject;
+
+        /// <summary>
+        /// 资源句柄
+        /// </summary>
+        private IAssetHandler _assetHandler;
 
         /// <summary>
         /// 窗口根节点对象实例
@@ -53,19 +61,22 @@ namespace GameFramework.View.Ugui
         /// </summary>
         protected override sealed async UniTask Load()
         {
-            UnityGameObject assetObject = await UnityFormHelper.OnWindowLoaded(_viewType);
+            // UnityGameObject assetObject = await UnityFormHelper.OnWindowLoaded(_viewType);
+            IAssetHandler assetHandler = UnityFormHelper.OnWindowLoaded(_viewType);
+            await assetHandler.Task;
 
-            UnityGameObject instantiateObject = UnityObject.Instantiate(assetObject, UnityFormHelper.DynamicCanvasTransform);
+            UnityGameObject instantiateObject = UnityObject.Instantiate(assetHandler.AssetObject.As<UnityGameObject>(), UnityFormHelper.DynamicCanvasTransform);
             // ResourceHandler.Instance.UnloadAsset(assetObject);
 
             if (null == instantiateObject)
             {
                 Debugger.Warn("加载指定视图类型‘{%t}’的窗口表单对象实例失败，请检查窗口资源是否存在！", _viewType);
+                assetHandler.Release();
                 return;
             }
 
-            //UnityObject.DontDestroyOnLoad(instantiateObject);
-            //instantiateObject.transform.parent = UnityFormHelper.DynamicCanvasTransform;
+            // UnityObject.DontDestroyOnLoad(instantiateObject);
+            // instantiateObject.transform.parent = UnityFormHelper.DynamicCanvasTransform;
 
             if (null != instantiateObject)
             {
@@ -74,7 +85,8 @@ namespace GameFramework.View.Ugui
                 _gameObject = instantiateObject;
                 _gameTransform = instantiateObject.transform;
 
-                _assetObject = assetObject;
+                // _assetObject = assetObject;
+                _assetHandler = assetHandler;
 
                 // 编辑器下显示名字
                 if (NovaEngine.Environment.IsDevelopmentState())
@@ -93,8 +105,11 @@ namespace GameFramework.View.Ugui
             _gameObject = null;
             _gameTransform = null;
 
-            ResourceHandler.Instance.UnloadAsset(_assetObject);
-            _assetObject = null;
+            // ResourceHandler.Instance.UnloadAsset(_assetObject);
+            // _assetObject = null;
+
+            _assetHandler.Release();
+            _assetHandler = null;
 
             _isLoaded = false;
         }
