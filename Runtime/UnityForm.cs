@@ -65,7 +65,8 @@ namespace GameFramework.View.Ugui
             IAssetHandler assetHandler = UnityFormHelper.OnWindowLoaded(_viewType);
             await assetHandler.Task;
 
-            UnityGameObject instantiateObject = UnityObject.Instantiate(assetHandler.AssetObject.As<UnityGameObject>(), UnityFormHelper.DynamicCanvasTransform);
+            UnityTransform canvasTransform = UnityFormHelper.GetGameCanvasTransformByGroupName(_groupName);
+            UnityGameObject instantiateObject = UnityObject.Instantiate(assetHandler.AssetObject.As<UnityGameObject>(), canvasTransform);
             // ResourceHandler.Instance.UnloadAsset(assetObject);
 
             if (null == instantiateObject)

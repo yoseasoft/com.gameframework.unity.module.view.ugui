@@ -6,7 +6,9 @@
         "NovaFramework.AssetLoader",
         "NovaEngine.Kernel",
         "NovaEngine.Basic",
-        "NovaEngine.Import"
+        "NovaEngine.Import",
+        "GameFramework.Common",
+        "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -17,6 +19,12 @@
     "defineConstraints": [
         "GAME_COMPILE || UNITY_EDITOR"
     ],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "",
+            "define": "GAMEFRAMEWORK_UNIVERSAL_RENDER_SUPPORTER"
+        }
+    ],
     "noEngineReferences": false
 }

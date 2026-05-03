@@ -32,5 +32,15 @@ namespace GameFramework.View.Ugui
         {
             return new UnityForm(viewType);
         }
+
+        public void AddGroup(string groupName, int level)
+        {
+            UnityFormHelper.AddGroup(groupName, level);
+        }
+
+        public void RemoveGroup(string groupName)
+        {
+            UnityFormHelper.RemoveGroup(groupName);
+        }
     }
 }
