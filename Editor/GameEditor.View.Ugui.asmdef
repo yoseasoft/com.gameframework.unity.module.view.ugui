@@ -1,0 +1,19 @@
+{
+    "name": "GameEditor.View.Ugui",
+    "rootNamespace": "",
+    "references": [
+        "NovaFramework.Common",
+        "GameFramework.Common"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

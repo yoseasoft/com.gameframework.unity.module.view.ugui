@@ -169,9 +169,13 @@ namespace GameFramework.View.Ugui
             UnityCanvas canvas = targetGameObject.AddComponent<UnityCanvas>();
             canvas.renderMode = UnityRenderMode.ScreenSpaceCamera;
             canvas.worldCamera = _globalCameraObject.GetComponent<UnityCamera>();
+            canvas.pixelPerfect = false;
             canvas.planeDistance = 100;
             canvas.sortingOrder = level * 5;
             canvas.sortingLayerName = "Default";
+            canvas.additionalShaderChannels =
+                UnityEngine.AdditionalCanvasShaderChannels.TexCoord1 |
+                UnityEngine.AdditionalCanvasShaderChannels.Normal;
 
             UnityCanvasScaler canvasScaler = targetGameObject.AddComponent<UnityCanvasScaler>();
             canvasScaler.uiScaleMode = UnityCanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -198,6 +202,12 @@ namespace GameFramework.View.Ugui
             }
         }
 
+        /// <summary>
+        /// 根据指定的主相机实例，刷新当前的视图相机<br/>
+        /// 在URP模式下，若场景添加了主相机，则需要将UI相机以Overlay的方式附加在主相机上，
+        /// 同理，移除主相机后，也同样需要将UI相机重置为主相机
+        /// </summary>
+        /// <param name="mainCamera">主相机实例</param>
         public static void UpdateViewCamera(UnityCamera mainCamera)
         {
 #if GAMEFRAMEWORK_UNIVERSAL_RENDER_SUPPORTER
